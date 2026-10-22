@@ -40,3 +40,15 @@ A cable alone is insufficient: a DRM connector must report `connected`.
 
 Rollback: `bash omarchy/install-power-policy.sh --remove`. This retains the last
 idle profile; the original shell.json backup is `shell.json.before-power-policy`.
+
+## Open laptop panel (2026-10-22)
+
+An open lid must keep the internal panel enabled and powered, including after
+arranger saves, manual display toggles, and lock-screen DPMS. The existing policy
+checks this every two seconds; a closed lid retains the normal clamshell behavior.
+This intentionally overrides idle blanking on the internal panel while open.
+The installer also installs the tracked monitor layout, with a backup at
+`~/.config/hypr/monitors.lua.before-open-lid-policy`. DP-5 uses its preferred mode
+because the connected T24i-30 supports 1920x1080, not the old forced 2560x1440.
+The panel was disabled by a monitor-arranger rule saved at 11:43.
+To roll back the layout, restore that backup after removing the service.

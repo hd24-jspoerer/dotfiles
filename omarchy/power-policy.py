@@ -50,6 +50,29 @@ def update_idle(powered, path):
     print('Idle profile:', desired, flush=True)
 
 
+def keep_open_panel_on(closed):
+    """An open lid wins over arranger/manual-disable and lock-time DPMS."""
+    if closed:
+        return
+    result = subprocess.run(['hyprctl', 'monitors', 'all', '-j'],
+                            capture_output=True, text=True, timeout=5)
+    if result.returncode:
+        return
+    for monitor in json.loads(result.stdout):
+        name = monitor['name']
+        if not name.startswith(('eDP-', 'LVDS-', 'DSI-')):
+            continue
+        if monitor.get('disabled'):
+            # JSON quotes are valid Lua strings for physical connector names.
+            rule = ('hl.monitor({ output = ' + json.dumps(name) +
+                    ', disabled = false, mode = "preferred", position = "auto", scale = 1.5 })')
+            subprocess.run(['hyprctl', 'eval', rule], check=True, timeout=5)
+        if monitor.get('disabled') or not monitor.get('dpmsStatus', True):
+            subprocess.run(['hyprctl', 'dispatch',
+                            'hl.dsp.dpms({ action = "enable", monitor = ' + json.dumps(name) + ' })'],
+                           check=True, timeout=5)
+
+
 def main():
     pending_since = None
     handled = False
@@ -60,6 +83,7 @@ def main():
         monitor = external_monitor()
         closed = lid_closed()
         update_idle(monitor or external_power(), path)
+        keep_open_panel_on(closed)
         eligible = closed and not monitor
         if not eligible:
             pending_since, handled = None, False

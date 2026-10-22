@@ -11,6 +11,8 @@ fi
 [[ $# == 0 ]] || exit 2
 mkdir -p "$HOME/.local/lib/omarchy-power-policy" "$HOME/.config/systemd/user"
 cp -an "$HOME/.config/omarchy/shell.json" "$HOME/.config/omarchy/shell.json.before-power-policy"
+cp -an "$HOME/.config/hypr/monitors.lua" "$HOME/.config/hypr/monitors.lua.before-open-lid-policy"
+install -m 644 "$source_dir/monitors.lua" "$HOME/.config/hypr/monitors.lua"
 install -m 755 "$source_dir/power-policy.py" "$HOME/.local/lib/omarchy-power-policy/power-policy.py"
 install -m 644 "$source_dir/power-policy.service" "$HOME/.config/systemd/user/omarchy-personal-power-policy.service"
 systemctl --user daemon-reload
