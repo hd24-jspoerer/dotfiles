@@ -1,0 +1,13 @@
+[Unit]
+Description=Personal monitor-aware lid and idle policy
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/systemd-inhibit --what=handle-lid-switch --mode=block --who=Omarchy-personal-power-policy "--why=Handle lid using physical external monitor state" /usr/bin/python3 %h/.local/lib/omarchy-power-policy/power-policy.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target
