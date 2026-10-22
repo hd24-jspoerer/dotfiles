@@ -1,4 +1,20 @@
-# Personal Omarchy power policy
+# Personal Omarchy configuration
+
+## Terminal clipboard shortcuts
+
+Foot is the default terminal. After committing and pushing, install with
+`bash omarchy/install-terminal-shortcuts.sh`, then open a new terminal window.
+The installer validates the tracked configuration and backs up the existing file.
+
+- Ctrl+C copies selected terminal text; Ctrl+V pastes the clipboard.
+- Ctrl+Shift+C sends the interrupt character (stops a running command).
+- Ctrl+Insert still copies; Shift+Insert and Ctrl+Shift+V still paste.
+
+The tracked `foot.ini` retains the Omarchy theme include and existing font,
+scrollback, and Enter bindings. Roll back by restoring the timestamped
+`~/.config/foot/foot.ini.before-terminal-shortcuts.*` backup and opening a new window.
+
+## Personal Omarchy power policy
 
 For Jan's Omarchy laptop. This lives in the personal dotfiles repository, not the
 shared agent-skills repository. Commit/push before installing:
