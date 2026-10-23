@@ -15,7 +15,11 @@ elif [[ "$state" == activating ]]; then
 else
   # Keep credentials in the interactive terminal, never in arguments or files.
   foot --title='HD24 VPN login' bash -c '
-    echo "HD24 VPN — enter your VPN password and required MFA."
+    echo "HD24 Sophos VPN — Anmeldung mit Einmalcode (MFA)"
+    echo "Im Passwortfeld: Passwort DIREKT gefolgt vom aktuellen Authenticator-Code."
+    echo "Kein Leerzeichen, kein Pluszeichen. Es gibt kein separates OTP-Feld."
+    echo "Verwenden Sie einen frischen Code. Passwort und Code werden nicht gespeichert."
+    echo
     if nmcli --ask connection up "HD24 Sophos VPN"; then
       notify-send "HD24 VPN" "Connected"
     else

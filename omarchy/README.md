@@ -79,3 +79,18 @@ credential prompt or disconnect. Passwords are not saved by this plugin.
 Status refreshes every three seconds; repeated clicks cannot open duplicate
 login prompts. Other bar settings are preserved and shell.json is backed up.
 To remove, remove the `hd24.vpn` entry from the right bar layout in shell.json.
+
+### Sophos MFA login
+
+The OpenVPN password prompt requires the VPN password immediately followed by the
+current authenticator passcode, with no separator (`<password><passcode>`).
+There is no separate OTP field in this imported profile. Enter credentials only
+in the Foot login window; never store combined passwords/passcodes or send them
+in chat. The profile deliberately uses `password-flags=2` (not saved).
+
+On 2026-10-23 the server was reachable but rejected login with `AUTH_FAILED`.
+A later `No agents were available` occurred after retries; it does not establish
+a routing or certificate fault. The launcher now explains the combined MFA input.
+A successful login and internal-host access must be verified separately.
+
+Reference: [Sophos password/passcode format](https://docs.sophos.com/nsg/sophos-firewall/21.0/Help/en-us/webhelp/onlinehelp/AdministratorHelp/Authentication/OneTimePassword/AuthenticationMFAThirdPartyAuthenticators/index.html).

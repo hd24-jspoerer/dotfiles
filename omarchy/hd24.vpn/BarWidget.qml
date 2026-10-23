@@ -33,7 +33,7 @@ BarWidget {
     text: "\uf132"
     slotSize: Style.bar.statusSlot
     foreground: root.vpnState === "activated" ? "#73c991" : root.vpnState === "activating" ? "#e5c07b" : "#aaaaaa"
-    tooltipText: root.vpnState === "activated" ? "HD24 VPN connected — click to disconnect" : root.vpnState === "activating" ? "HD24 VPN connecting — complete the login prompt" : "HD24 VPN disconnected — click to connect"
+    tooltipText: root.vpnState === "activated" ? "HD24 VPN connected — click to disconnect" : root.vpnState === "activating" ? "HD24 VPN connecting — complete the login prompt" : "HD24 VPN disconnected — click to enter password + current OTP"
     onPressed: Quickshell.execDetached(["bash", Quickshell.env("HOME") + "/.config/omarchy/plugins/hd24.vpn/toggle.sh"])
   }
 }

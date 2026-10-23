@@ -26,6 +26,6 @@ if ! nmcli -g connection.id connection show "$name" >/dev/null 2>&1; then
   nmcli connection modify "$uuid" connection.id "$name" connection.autoconnect no
   nmcli connection modify "$uuid" +vpn.data 'username=j.spoerer,password-flags=2'
 fi
-echo 'Connecting to HD24. Enter VPN credentials in this terminal when prompted.'
+echo 'HD24 VPN: Im Passwortfeld Passwort direkt gefolgt vom aktuellen Authenticator-Code eingeben (ohne Leerzeichen).'
 nmcli --ask connection up "$name"
 nmcli -f NAME,TYPE,DEVICE connection show --active
