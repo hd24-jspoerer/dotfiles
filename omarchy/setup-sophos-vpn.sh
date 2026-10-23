@@ -27,5 +27,5 @@ if ! nmcli -g connection.id connection show "$name" >/dev/null 2>&1; then
   nmcli connection modify "$uuid" +vpn.data 'username=j.spoerer,password-flags=2'
 fi
 echo 'HD24 VPN: Im Passwortfeld Passwort direkt gefolgt vom aktuellen Authenticator-Code eingeben (ohne Leerzeichen).'
-nmcli --ask connection up "$name"
+python3 "$(dirname -- "$(readlink -f "$0")")/hd24.vpn/login.py" --connect
 nmcli -f NAME,TYPE,DEVICE connection show --active

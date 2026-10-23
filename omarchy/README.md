@@ -94,3 +94,23 @@ a routing or certificate fault. The launcher now explains the combined MFA input
 A successful login and internal-host access must be verified separately.
 
 Reference: [Sophos password/passcode format](https://docs.sophos.com/nsg/sophos-firewall/21.0/Help/en-us/webhelp/onlinehelp/AdministratorHelp/Authentication/OneTimePassword/AuthenticationMFAThirdPartyAuthenticators/index.html).
+
+### VPN failure diagnostics
+
+The login supervisor keeps `nmcli --ask` attached directly to the terminal;
+it never captures its output or reads/stores password and OTP input. It monitors
+only NetworkManager journal messages and stores whitelisted error categories,
+timestamps and exit codes in `~/.local/state/hd24-vpn/attempt-*.jsonl` (directory
+0700, files 0600). Raw journal lines, entered credentials and OTPs are excluded.
+On `AUTH_FAILED` it stops the pending activation and shows a clear password/MFA
+rejection message instead of silently leaving repeated password prompts running.
+Certificate, cipher negotiation, DNS, timeout and missing-agent errors have
+separate explanations. A deprecation warning alone is not a connection failure.
+
+Read current categorized diagnostics without attempting a connection:
+
+```bash
+python3 ~/.config/omarchy/plugins/hd24.vpn/login.py --diagnose
+```
+
+Tests: `python3 omarchy/tests/test_vpn_login.py` (synthetic events only).

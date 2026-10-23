@@ -3,7 +3,7 @@ set -euo pipefail
 source_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 target="$HOME/.config/omarchy/plugins/hd24.vpn"
 mkdir -p "$target"
-install -m 644 "$source_dir"/hd24.vpn/{manifest.json,BarWidget.qml,toggle.sh} "$target/"
+install -m 644 "$source_dir"/hd24.vpn/{manifest.json,BarWidget.qml,toggle.sh,login.py} "$target/"
 python - <<'PY'
 import json, os, shutil, time
 from pathlib import Path

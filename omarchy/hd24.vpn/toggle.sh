@@ -13,18 +13,7 @@ if [[ "$state" == activated ]]; then
 elif [[ "$state" == activating ]]; then
   notify-send 'HD24 VPN' 'Connection in progress. Complete the VPN login prompt.'
 else
-  # Keep credentials in the interactive terminal, never in arguments or files.
-  foot --title='HD24 VPN login' bash -c '
-    echo "HD24 Sophos VPN — Anmeldung mit Einmalcode (MFA)"
-    echo "Im Passwortfeld: Passwort DIREKT gefolgt vom aktuellen Authenticator-Code."
-    echo "Kein Leerzeichen, kein Pluszeichen. Es gibt kein separates OTP-Feld."
-    echo "Verwenden Sie einen frischen Code. Passwort und Code werden nicht gespeichert."
-    echo
-    if nmcli --ask connection up "HD24 Sophos VPN"; then
-      notify-send "HD24 VPN" "Connected"
-    else
-      notify-send -u critical "HD24 VPN" "Connection failed or cancelled"
-      read -r -p "Press Enter to close."
-    fi
-  '
+  # The supervised login leaves nmcli on its real terminal and logs only safe categories.
+  directory=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+  foot --title='HD24 VPN login' python3 "$directory/login.py" --connect
 fi
