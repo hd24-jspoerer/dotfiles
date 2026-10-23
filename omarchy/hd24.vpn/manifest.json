@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "hd24.vpn",
+  "name": "HD24 VPN",
+  "version": "1.0.0",
+  "author": "HD24",
+  "description": "Connect and disconnect Sophos VPN",
+  "kinds": ["bar-widget"],
+  "entryPoints": {"barWidget": "BarWidget.qml"},
+  "barWidget": {"displayName": "HD24 VPN", "category": "Network", "allowMultiple": false}
+}

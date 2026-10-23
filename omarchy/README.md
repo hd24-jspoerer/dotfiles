@@ -68,3 +68,14 @@ The installer also installs the tracked monitor layout, with a backup at
 because the connected T24i-30 supports 1920x1080, not the old forced 2560x1440.
 The panel was disabled by a monitor-arranger rule saved at 11:43.
 To roll back the layout, restore that backup after removing the service.
+
+## HD24 VPN bar control
+
+After configuring `HD24 Sophos VPN` with `setup-sophos-vpn.sh`, install the
+persistent user plugin with `bash omarchy/install-vpn-widget.sh` after committing
+and pushing. The shield beside the network icon is green when connected, amber
+while connecting, and grey when disconnected. Click to connect through a Foot
+credential prompt or disconnect. Passwords are not saved by this plugin.
+Status refreshes every three seconds; repeated clicks cannot open duplicate
+login prompts. Other bar settings are preserved and shell.json is backed up.
+To remove, remove the `hd24.vpn` entry from the right bar layout in shell.json.
