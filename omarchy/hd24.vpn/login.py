@@ -79,7 +79,7 @@ class Log:
 def state():
     result = subprocess.run(['nmcli', '-g', 'GENERAL.STATE', 'connection', 'show', PROFILE],
                             capture_output=True, text=True, timeout=8)
-    return result.stdout.strip() if result.returncode == 0 else 'unknown'
+    return (result.stdout.strip() or 'deactivated') if result.returncode == 0 else 'unknown'
 
 
 def journal(cursor=None, since=None):
